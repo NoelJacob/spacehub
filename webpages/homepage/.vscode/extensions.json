@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "EditorConfig.EditorConfig",
+    "svelte.svelte-vscode",
+    "ardenivanov.svelte-intellisense",
+    "csstools.postcss"
+  ]
+}

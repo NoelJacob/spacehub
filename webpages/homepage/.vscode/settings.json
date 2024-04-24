@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
