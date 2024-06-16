@@ -48,7 +48,7 @@ jobs:
         run: flutter build linux
         if: matrix.platform == 'ubuntu-latest'
       - name: Gzip Linux build
-        run: tar -czf ./build/linux/linux.tar.gz .build/linux/x64/release/bundle/
+        run: tar -czf ./build/linux/linux.tar.gz ./build/linux/x64/release/bundle/
         if: matrix.platform == 'ubuntu-latest'
       - name: Build Windows
         run: flutter build windows
@@ -59,6 +59,9 @@ jobs:
       - name: Build iOS
         run: flutter build ipa --release --no-codesign
         if: matrix.platform == 'macos-latest'
+      - name: Build macOS
+        run: flutter build macos --release --no-codesign
+        if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
@@ -68,5 +71,4 @@ jobs:
             ./build/app/outputs/apk/release/app-x86_64-release.apk
             ./build/linux/linux.tar.gz
             ./build/windows/windows.zip
-            ./build/ios/ipa/*.ipa
-            ./build/ios/archive/*.xcarchive
+            .build/ios/archive/Runner.xcarchive
