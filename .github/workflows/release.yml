@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ windows-latest, macos-latest, ubuntu-latest ]
+        platform: [ windows-latest, ubuntu-latest ]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -39,6 +39,7 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.22.x
+          architecture: x64
       - name: Install dependencies
         run: flutter pub get
       - name: Build APKs
@@ -56,9 +57,9 @@ jobs:
       - name: Zip Windows build
         run: Compress-Archive -Path ./build/windows/runner/Release/ -DestinationPath ./build/windows/windows.zip
         if: matrix.os == 'windows-latest'
-      - name: Build iOS
-        run: flutter build ipa
-        if: matrix.os == 'macos-latest'
+#      - name: Build iOS
+#        run: flutter build ipa
+#        if: matrix.os == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
@@ -68,5 +69,5 @@ jobs:
             ./build/app/outputs/apk/release/app-x86_64-release.apk
             ./build/linux/linux.tar.gz
             ./build/windows/windows.zip
-            ./build/ios/ipa/*.ipa
-            ./build/ios/archive/*.xcarchive
+#            ./build/ios/ipa/*.ipa
+#            ./build/ios/archive/*.xcarchive
