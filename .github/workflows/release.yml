@@ -23,6 +23,9 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
+          cache-workspaces: |
+            ./rust
+            ./build/rust_lib_spacehub/build
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
