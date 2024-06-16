@@ -60,14 +60,14 @@ jobs:
       - name: Build iOS
         run: flutter build ipa --release --no-codesign
         if: matrix.platform == 'macos-latest'
-      - name: Rename iOS build
-        run: mv ./build/ios/archive/Runner.xcarchive ./ios.xcarchive
+      - name: Gzip iOS build
+        run: tar -czf ./iOS.xcarchive.tar.gz ./build/ios/archive/Runner.xcarchive
         if: matrix.platform == 'macos-latest'
       - name: Build macOS
         run: flutter build macos
         if: matrix.platform == 'macos-latest'
-      - name: Rename macOS build
-        run: mv ./build/macos/Build/Products/Release/spacehub.app ./macos.app
+      - name: Gzip macOS build
+        run: tar -czf ./MacOS.app.tar.gz ./build/macos/Build/Products/Release/spacehub.app
         if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
@@ -78,5 +78,5 @@ jobs:
             ./build/app/outputs/apk/release/app-x86_64-release.apk
             ./Linux.tar.gz
             ./Windows.zip
-            ./ios.xcarchive
-            ./macos.app
+            ./iOS.xcarchive.tar.gz
+            ./MacOS.app.tar.gz
