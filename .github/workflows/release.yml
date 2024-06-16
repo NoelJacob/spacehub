@@ -52,7 +52,7 @@ jobs:
         run: flutter build linux
         if: matrix.platform == 'ubuntu-latest'
       - name: Gzip Linux build
-        run: tar -czf ./Linux.tar.gz ./build/linux/x64/release/bundle/
+        run: tar -czf ./Linux.tar.gz -C ./build/linux/x64/release/bundle/ .
         if: matrix.platform == 'ubuntu-latest'
       - name: Build Windows
         run: flutter build windows
@@ -64,13 +64,13 @@ jobs:
         run: flutter build ipa --release --no-codesign
         if: matrix.platform == 'macos-latest'
       - name: Gzip iOS build
-        run: tar -czf ./iOS.xcarchive.tar.gz ./build/ios/archive/Runner.xcarchive
+        run: tar -czf ./iOS.xcarchive.tar.gz -C ./build/ios/archive/Runner.xcarchive .
         if: matrix.platform == 'macos-latest'
       - name: Build macOS
         run: flutter build macos
         if: matrix.platform == 'macos-latest'
       - name: Gzip macOS build
-        run: tar -czf ./MacOS.app.tar.gz ./build/macos/Build/Products/Release/spacehub.app
+        run: tar -czf ./MacOS.app.tar.gz -C ./build/macos/Build/Products/Release/spacehub.app .
         if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
