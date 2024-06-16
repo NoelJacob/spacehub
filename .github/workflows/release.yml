@@ -60,7 +60,7 @@ jobs:
         run: flutter build ipa --release --no-codesign
         if: matrix.platform == 'macos-latest'
       - name: Build macOS
-        run: flutter build macos --release --no-codesign
+        run: flutter build macos
         if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
