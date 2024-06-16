@@ -48,16 +48,16 @@ jobs:
         run: flutter build linux
         if: matrix.platform == 'ubuntu-latest'
       - name: Gzip Linux build
-        run: tar -czf ./build/linux/linux.tar.gz ./build/linux/release/
+        run: tar -czf ./build/linux/linux.tar.gz .build/linux/x64/release/bundle/
         if: matrix.platform == 'ubuntu-latest'
       - name: Build Windows
         run: flutter build windows
         if: matrix.platform == 'windows-latest'
       - name: Zip Windows build
-        run: Compress-Archive -Path ./build/windows/runner/Release/ -DestinationPath ./build/windows/windows.zip
+        run: Compress-Archive -Path ./build/windows/x64/runner/Release/ -DestinationPath ./build/windows/windows.zip
         if: matrix.platform == 'windows-latest'
       - name: Build iOS
-        run: flutter build ipa
+        run: flutter build ipa --release --no-codesign
         if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
