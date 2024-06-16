@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ windows-latest, ubuntu-latest ]
+        platform: [ windows-latest, macos-latest, ubuntu-latest ]
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -33,33 +33,32 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y ninja-build libgtk-3-dev
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: 3.22.x
-#          architecture: x64
       - name: Install dependencies
         run: flutter pub get
       - name: Build APKs
         run: flutter build apk --split-per-abi
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
       - name: Build Linux
         run: flutter build linux
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
       - name: Gzip Linux build
         run: tar -czf ./build/linux/linux.tar.gz ./build/linux/release/
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest'
       - name: Build Windows
         run: flutter build windows
-        if: matrix.os == 'windows-latest'
+        if: matrix.platform == 'windows-latest'
       - name: Zip Windows build
         run: Compress-Archive -Path ./build/windows/runner/Release/ -DestinationPath ./build/windows/windows.zip
-        if: matrix.os == 'windows-latest'
+        if: matrix.platform == 'windows-latest'
       - name: Build iOS
         run: flutter build ipa
-        if: matrix.os == 'macos-latest'
+        if: matrix.platform == 'macos-latest'
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
